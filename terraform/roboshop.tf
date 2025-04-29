@@ -9,6 +9,10 @@ variable "inst_type" {
   default = "t3.small"
 }
 
+resource "aws_route53_zone" "primary" {
+  name = "kmvdevops.shop"
+}
+
 resource "aws_instance" "frontend" {
   ami           = data.aws_ami.centos_user.image_id
   instance_type = var.inst_type
@@ -17,3 +21,12 @@ resource "aws_instance" "frontend" {
     Name = "frontend"
   }
 }
+
+resource "aws_route53_record" "frontend" {
+  zone_id = aws_route53_zone.primary.zone_id
+  name    = "frontend-dev.kmvdevops.shop"
+  type    = "A"
+  ttl     = 30
+  records = [aws_instance.frontend.private_ip]
+}
+
