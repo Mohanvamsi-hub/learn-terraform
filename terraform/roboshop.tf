@@ -2,7 +2,7 @@
 data "aws_ami" "centos_user" {
   most_recent = true
   name_regex  = "Centos-8-DevOps-Practice"
-  owners = ["864899865746"]
+  owners = ["973714476881"]
 }
 
 variable "inst_type" {
