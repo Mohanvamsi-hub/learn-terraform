@@ -10,7 +10,38 @@ variable "inst_type" {
 }
 
 variable "nameofservers" {
-  default = ["frontend", "mongodb", "catalogue","redis","user","cart","mysql","shipping","rabbitmq","payment"]
+  default = {
+    frontend = {
+      name = "frontend"
+    }
+    mongodb = {
+      name = "mongodb"
+    }
+    catalogue = {
+      name = "catalogue"
+    }
+    redis = {
+      name = "redis"
+    }
+    user = {
+      name = "user"
+    }
+    cart = {
+      name = "cart"
+    }
+    mysql = {
+      name = "mysql"
+    }
+    shipping = {
+      name = "shipping"
+    }
+    rabbitmq = {
+      name = "rabbitmq"
+    }
+    payment = {
+      name = "payment"
+    }
+  }
 }
 
 resource "aws_instance" "ec2name" {
@@ -20,7 +51,7 @@ resource "aws_instance" "ec2name" {
   for_each = var.nameofservers
 
   tags = {
-    Name = each.key
+    Name = each.value["name"]
   }
 }
 
