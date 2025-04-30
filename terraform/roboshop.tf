@@ -62,6 +62,6 @@ resource "aws_route53_record" "frontend" {
   name    = "${each.value["name"]}-dev.kmvdevops.shop"
   type    = "A"
   ttl     = 30
-  records = [aws_instance.ec2name.private_ip]
+  records = [aws_instance.ec2name[each.value["name"]].private_ip]
 }
 
