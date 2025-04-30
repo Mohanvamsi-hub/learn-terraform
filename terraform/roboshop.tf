@@ -17,18 +17,20 @@ resource "aws_instance" "ec2name" {
   ami           = data.aws_ami.centos_user.image_id
   instance_type = var.inst_type
 
-  count = length(var.nameofservers)
+  for_each = var.nameofservers
 
   tags = {
-    Name = var.nameofservers[count.index]
+    Name = each.key
   }
 }
 
-resource "aws_route53_record" "frontend" {
-  zone_id = "Z104617622FGO6B5DAYVE"
-  name    = "${var.nameofservers[count.index]}-dev.kmvdevops.shop"
-  type    = "A"
-  ttl     = 30
-  records = [aws_instance.ec2name.private_ip]
-}
+# resource "aws_route53_record" "frontend" {
+#   for_each = var.nameofservers
+#
+#   zone_id = "Z104617622FGO6B5DAYVE"
+#   name    = "${each.key}-dev.kmvdevops.shop"
+#   type    = "A"
+#   ttl     = 30
+#   records = [aws_instance.ec2name.private_ip]
+# }
 
