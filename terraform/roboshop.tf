@@ -55,13 +55,13 @@ resource "aws_instance" "ec2name" {
   }
 }
 
-# resource "aws_route53_record" "frontend" {
-#   for_each = var.nameofservers
-#
-#   zone_id = "Z104617622FGO6B5DAYVE"
-#   name    = "${each.key}-dev.kmvdevops.shop"
-#   type    = "A"
-#   ttl     = 30
-#   records = [aws_instance.ec2name.private_ip]
-# }
+resource "aws_route53_record" "frontend" {
+  for_each = var.nameofservers
+
+  zone_id = "Z104617622FGO6B5DAYVE"
+  name    = "${each.value["name"]}-dev.kmvdevops.shop"
+  type    = "A"
+  ttl     = 30
+  records = [aws_instance.ec2name.private_ip]
+}
 
