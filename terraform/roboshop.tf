@@ -9,21 +9,26 @@ variable "inst_type" {
   default = "t3.small"
 }
 
+variable "nameofservers" {
+  default = ["frontend", "mongodb", "catalogue","redis","user","cart","mysql","shipping","rabbitmq","payment"]
+}
 
-resource "aws_instance" "frontend" {
+resource "aws_instance" "ec2name" {
   ami           = data.aws_ami.centos_user.image_id
   instance_type = var.inst_type
 
+  count = length(var.nameofservers)
+
   tags = {
-    Name = "frontend"
+    Name = var.nameofservers[count.index]
   }
 }
 
 resource "aws_route53_record" "frontend" {
   zone_id = "Z104617622FGO6B5DAYVE"
-  name    = "frontend-dev.kmvdevops.shop"
+  name    = "${var.nameofservers[count.index]}-dev.kmvdevops.shop"
   type    = "A"
   ttl     = 30
-  records = [aws_instance.frontend.private_ip]
+  records = [aws_instance.ec2name.private_ip]
 }
 
