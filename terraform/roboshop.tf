@@ -5,6 +5,10 @@ data "aws_ami" "centos_user" {
   owners = ["973714476881"]
 }
 
+data "aws_security_group" "allow-all" {
+  name = "allow-all"
+}
+
 variable "inst_type" {
   default = "t3.small"
 }
@@ -47,7 +51,7 @@ variable "nameofservers" {
 resource "aws_instance" "ec2name" {
   ami           = data.aws_ami.centos_user.image_id
   instance_type = var.inst_type
-
+  vpc_security_group_ids = [ data.aws_security_group.allow-all.id ]
   for_each = var.nameofservers
 
   tags = {
