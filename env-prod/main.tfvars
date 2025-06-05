@@ -1,6 +1,4 @@
-inst_type = {
-  default = "t3.small"
-}
+inst_type = "t3.small"
 
 nameofservers = {
   frontend = {
