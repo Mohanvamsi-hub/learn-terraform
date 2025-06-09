@@ -10,9 +10,6 @@ resource "aws_instance" "ec2name" {
   tags = {
     Name = each.value["name"]
   }
-}
-
-resource "aws_instance" "web" {
 
   connection {
     type     = "ssh"
@@ -29,6 +26,7 @@ resource "aws_instance" "web" {
       "sudo bash ${each.value["name"]}.sh"
     ]
   }
+
 }
 
 
