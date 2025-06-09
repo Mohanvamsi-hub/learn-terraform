@@ -22,15 +22,19 @@ nameofservers = {
   }
   mysql = {
     name = "mysql"
+    passsword = "RoboShop@1"
   }
   shipping = {
     name = "shipping"
+    passsword = "RoboShop@1"
   }
   rabbitmq = {
     name = "rabbitmq"
+    passsword = "roboshop123"
   }
   payment = {
     name = "payment"
+    passsword = "roboshop123"
   }
 }
 

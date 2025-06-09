@@ -1,4 +1,11 @@
-
+terraform {
+  required_providers {
+    null = {
+      source  = "hashicorp/null"
+      version = "3.2.3"
+    }
+  }
+}
 
 
 resource "aws_instance" "ec2name" {
@@ -11,11 +18,17 @@ resource "aws_instance" "ec2name" {
     Name = each.value["name"]
   }
 
+}
+
+resource "null_resource" "followupresource" {
+
+  depends_on = [aws_instance.ec2name, aws_route53_record.records]
+  for_each = var.nameofservers
   connection {
     type     = "ssh"
     user     = "centos"
     password = "DevOps321"
-    host     = self.private_ip
+    host     = [aws_instance.ec2name[each.value["name"]].private_ip]
   }
 
   provisioner "remote-exec" {
@@ -23,14 +36,13 @@ resource "aws_instance" "ec2name" {
       "rm -rf roboshop-shell",
       "git clone https://github.com/Mohanvamsi-hub/roboshop-shell.git",
       "cd roboshop-shell",
-      "sudo bash ${each.value["name"]}.sh"
+      "sudo bash ${each.value["name"]}.sh  ${lookup(each.value,"password","null")}"
     ]
   }
-
 }
 
 
-resource "aws_route53_record" "frontend" {
+resource "aws_route53_record" "records" {
   for_each = var.nameofservers
 
   zone_id = "Z104617622FGO6B5DAYVE"
