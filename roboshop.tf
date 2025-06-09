@@ -28,7 +28,7 @@ resource "null_resource" "followupresource" {
     type     = "ssh"
     user     = "centos"
     password = "DevOps321"
-    host     = [aws_instance.ec2name[each.value["name"]].private_ip]
+    host     = aws_instance.ec2name[each.value["name"]].private_ip
   }
 
   provisioner "remote-exec" {
