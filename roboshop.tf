@@ -36,7 +36,7 @@ resource "null_resource" "followupresource" {
       "rm -rf roboshop-shell",
       "git clone https://github.com/Mohanvamsi-hub/roboshop-shell.git",
       "cd roboshop-shell",
-      "sudo bash ${each.value["name"]}.sh  ${lookup(each.value,each.value["password"],"null")}"
+      "sudo bash ${each.value["name"]}.sh  ${lookup(each.value,"password","null")}"
     ]
   }
 }
