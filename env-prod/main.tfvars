@@ -8,7 +8,7 @@ nameofservers = {
   }
   rabbitmq = {
     name = "rabbitmq"
-    passsword = "roboshop123"
+    password = "roboshop123"
   }
 }
 
