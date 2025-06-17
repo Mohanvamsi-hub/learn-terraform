@@ -1,6 +1,5 @@
 inst_type = "t3.small"
 
-
 nameofservers = {
   frontend = {
     name = "frontend"
