@@ -4,7 +4,7 @@ resource "aws_instance" "ec2name" {
   vpc_security_group_ids = [ data.aws_security_group.allow-all.id ]
 
   tags = {
-    Name = var.nameofservers
+    Name = var.env != "" ? "${var.nameofservers}"-"${var.env}" : var.nameofservers
   }
 
 }
