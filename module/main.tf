@@ -10,7 +10,7 @@ resource "aws_instance" "ec2name" {
 }
 
 resource "null_resource" "followupresource" {
-
+  count = var.provisioner ? 1 : 0
   depends_on = [aws_instance.ec2name, aws_route53_record.records]
   connection {
     type     = "ssh"

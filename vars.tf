@@ -2,4 +2,9 @@ variable "env" {}
 
 variable "inst_type" {}
 
-variable "nameofservers" {}
+variable "app_servers" {}
+
+variable "database_servers" {}
+
+
+
